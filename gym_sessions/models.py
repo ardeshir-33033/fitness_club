@@ -55,7 +55,8 @@ class GymSession(models.Model):
         choices=SessionType.choices,
         default=SessionType.GROUP_CLASS,
     )
-    starts_at = models.DateTimeField(db_index=True)
+    # starts_at = models.DateTimeField(db_index=True)    
+    starts_at = models.DateTimeField()
     ends_at = models.DateTimeField()
     max_capacity = models.PositiveIntegerField(
         help_text="Maximum allowed attendees (1 for private, up to 20 for group)",
@@ -73,10 +74,10 @@ class GymSession(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
         ordering = ['starts_at']
-        indexes = [
-            # Composite index for Sunday 8 PM schedule lookups:
-            models.Index(fields=['starts_at', 'status'], name='idx_session_schedule'),
-        ]
+        # indexes = [
+        #     # Composite index for Sunday 8 PM schedule lookups:
+        #     models.Index(fields=['starts_at', 'status'], name='idx_session_schedule'),
+        # ]
         constraints = [
             # 1. Database constraint: A session cannot end before or at the start time
             models.CheckConstraint(
