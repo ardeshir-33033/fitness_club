@@ -3,6 +3,8 @@ from datetime import timedelta
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+
+
 class BookingStatus(models.TextChoices):
     HELD = 'HELD', 'Held'               # 10-minute temporary lock
     CONFIRMED = 'CONFIRMED', 'Confirmed' # Paid & finalized

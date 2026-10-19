@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'gym_sessions',
     'bookings',
+    'waitlist'
 ]
 
 MIDDLEWARE = [
