@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'accounts',
     'gym_sessions',
     'bookings',
+    'waitlist',
     'rest_framework',
-    'django_filters',    
+    'django_filters',
 ]
 
 MIDDLEWARE = [
