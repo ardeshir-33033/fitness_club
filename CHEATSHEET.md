@@ -8,6 +8,7 @@ A concise reference guide for essential commands, workflows, and operations used
 
 | Command | Description & Purpose | When to Use |
 | :--- | :--- | :--- |
+`source .venv/bin/activate` for mac
 | `.\.venv\Scripts\Activate.ps1` | **Activate Environment:** Connects PowerShell to the project's isolated environment (indicated by `(.venv)` in the prompt). | At the start of each development session |
 | `deactivate` | **Deactivate Environment:** Exits `.venv` and returns to the system-wide Python. | When finished or switching to another project |
 | `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned` | **Fix PowerShell Script Policy:** Permits running local scripts if PowerShell restricts execution. | One-time setup, only if `Activate.ps1` throws an execution policy error |
