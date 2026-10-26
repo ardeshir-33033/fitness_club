@@ -39,7 +39,7 @@ class GymSessionListSerializer(serializers.ModelSerializer):
     session_type_display = serializers.CharField(source='get_session_type_display', read_only=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
 
-    available_capacity = serializers.IntegerField(read_only=True)
+    available_capacity = serializers.SerializerMethodField()
 
 
     class Meta:
@@ -59,6 +59,11 @@ class GymSessionListSerializer(serializers.ModelSerializer):
             'status_display',
             'is_private',
         ]    
+        
+    def get_available_capacity(self, obj) -> int:
+        if hasattr(obj, 'available_capacity'):
+            return obj.available_capacity
+        return obj.get_available_capacity()            
 
 
 
@@ -69,7 +74,8 @@ class GymSessionDetailSerializer(serializers.ModelSerializer):
     trainer = TrainerDetailSerializer(read_only=True)
     session_type_display = serializers.CharField(source='get_session_type_display', read_only=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
-    available_capacity = serializers.IntegerField(read_only=True)
+    available_capacity = serializers.SerializerMethodField()
+
     class Meta:
         model = GymSession
         fields = [
@@ -89,3 +95,8 @@ class GymSessionDetailSerializer(serializers.ModelSerializer):
             'is_private',
             'created_at',
         ]
+
+    def get_available_capacity(self, obj) -> int:
+        if hasattr(obj, 'available_capacity'):
+            return obj.available_capacity
+        return obj.get_available_capacity()    

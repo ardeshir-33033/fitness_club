@@ -100,3 +100,18 @@ class GymSession(models.Model):
     @property
     def is_private(self) -> bool:
         return self.session_type == self.SessionType.PRIVATE_1ON1
+
+    def get_available_capacity(self) -> int:
+        """
+        Calculates remaining capacity for this single session.
+        A seat is occupied if booking is CONFIRMED, or HELD and not yet expired.
+        """
+        from django.utils import timezone
+        from bookings.models import BookingStatus
+
+        active_count = self.bookings.filter(
+            models.Q(status=BookingStatus.CONFIRMED) |
+            models.Q(status=BookingStatus.HELD, expires_at__gt=timezone.now())
+        ).count()
+        return max(0, self.max_capacity - active_count)
+    
