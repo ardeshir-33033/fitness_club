@@ -1,17 +1,15 @@
+from datetime import timedelta
+from django.db import transaction
 from django.db.models import Count, Q, F
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, filters
-from rest_framework.permissions import AllowAny
-from datetime import timedelta
-from django.db import transaction
+from rest_framework import filters, status, viewsets
 from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+
 from bookings.models import Booking, BookingStatus
 from bookings.serializers import BookingHoldResponseSerializer
-from bookings.models import BookingStatus
 from .models import Trainer, GymSession
 from .serializers import (
     TrainerSummarySerializer,
@@ -49,6 +47,7 @@ class GymSessionReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
     Provides:
       - GET /api/v1/sessions/
       - GET /api/v1/sessions/{id}/
+      - POST /api/v1/sessions/{id}/hold/
     """
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['session_type', 'status', 'trainer']
@@ -59,7 +58,7 @@ class GymSessionReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
         # Anyone can view the schedule; only logged-in users can place a hold
         if self.action == 'hold':
             return [IsAuthenticated()]
-        return [AllowAny()]    
+        return [AllowAny()]
 
     def get_queryset(self):
         now = timezone.now()
@@ -159,7 +158,7 @@ class GymSessionReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
             )
 
             serializer = BookingHoldResponseSerializer(booking)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)        
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get_serializer_class(self):
         # Return lightweight list serializer for schedule, detail serializer for single session

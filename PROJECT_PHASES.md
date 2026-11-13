@@ -22,31 +22,31 @@ gantt
 ---
 
 ## 🏗️ فاز ۱: راه‌اندازی زیرساخت و ابزارها (Infrastructure Setup)
-- [ ] نصب و تنظیم **Django REST Framework (DRF)**.
-- [ ] افزودن تنظیمات توسعه، متغیرهای محیطی (`.env`) و فایل `.gitignore`.
+- [x] نصب و تنظیم **Django REST Framework (DRF)**.
+- [x] افزودن تنظیمات توسعه، متغیرهای محیطی (`.env`) و فایل `.gitignore`.
 - [ ] تنظیم ابزار مستندسازی API (مثل `drf-spectacular` یا `drf-yasg` برای Swagger).
-- [ ] آماده‌سازی کانفیگ دیتابیس PostgreSQL برای محیط توسعه.
+- [x] آماده‌سازی کانفیگ دیتابیس PostgreSQL برای محیط توسعه.
 
 ---
 
 ## 🗄️ فاز ۲: طراحی دامنه و مدل‌های دیتابیس (Domain Modeling & Schema)
-- [ ] ایجاد اپلیکیشن‌های مجزا:
+- [x] ایجاد اپلیکیشن‌های مجزا:
   - `accounts`: مدل کاربر سفارشی (User) و نقش‌ها (Client, Trainer, Admin).
   - `gym_sessions`: مدل مربیان (Trainers)، سانس‌ها (Sessions)، ظرفیت‌ها و قیمت‌ها.
   - `bookings`: مدل رزرو (Booking) و ماشین وضعیت (`AVAILABLE`, `HELD`, `CONFIRMED`, `CANCELLED`, `EXPIRED`).
   - `waitlist`: مدل صف انتظار (WaitlistEntry) با کلیدهای اولویت زمانی.
-- [ ] اعمال محدودیت‌های یکپارچگی (Database Constraints & Unique Constraints).
-- [ ] ساخت مایگریشن‌ها و ایجاد پنل ادمین جنگو برای تست و ورود اطلاعات آزمایشی.
+- [x] اعمال محدودیت‌های یکپارچگی (Database Constraints & Unique Constraints).
+- [x] ساخت مایگریشن‌ها و ایجاد پنل ادمین جنگو برای تست و ورود اطلاعات آزمایشی.
 
 ---
 
 ## ⚡ فاز ۳: کاتالوگ سانس‌ها و APIهای عمومی (Catalog & Read Path)
-- [ ] ساخت Serializerهای اختصاصی برای مربیان و برنامه‌های هفتگی.
-- [ ] پیاده‌سازی اندپوینت‌های خواندن:
+- [x] ساخت Serializerهای اختصاصی برای مربیان و برنامه‌های هفتگی.
+- [x] پیاده‌سازی اندپوینت‌های خواندن:
   - `GET /api/v1/sessions/`: مشاهده سانس‌های هفته با قابلیت فیلتر.
   - `GET /api/v1/sessions/{id}/`: مشاهده جزئیات سانس، ظرفیت باقی‌مانده و قیمت.
-- [ ] بهینه‌سازی کوئری‌ها با `select_related` و `prefetch_related` جهت جلوگیری از باگ N+1.
-- [ ] ایندکس‌گذاری فیلدهای پرکاربرد جستجو (`date`, `trainer_id`, `status`).
+- [x] بهینه‌سازی کوئری‌ها با `select_related` و `prefetch_related` جهت جلوگیری از باگ N+1.
+- [ ] ایندکس‌گذاری فیلدهای پرکاربرد جستجو (`date`, `trainer_id`, `status`) - *مکول به فاز ۷ تست استرس*.
 
 ---
 
